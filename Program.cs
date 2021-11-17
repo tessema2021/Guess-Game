@@ -1,35 +1,45 @@
 ﻿using System;
+using System.Collections.Generic;
 
 
 
 
-Console.WriteLine("guess the secret number");
+Console.WriteLine("difficulty level? 1 -easy, 2 - medium, 3 -hard, 4 -hardest");
+var difficulty = int.Parse(Console.ReadLine());
 //string guessNumber = Console.ReadLine();
 //Console.WriteLine(guessNumber);
 Random r = new Random();
 int secretNumber = r.Next(1, 100);
-int AllowChance = 4;
-int numberOfChances = 0;
-while (true)
+
+List<int> difficultiesTries = new List<int>
+             {
+                 8,
+                 6,
+                 4,
+                 2
+             };
+
+int numOfTries = difficultiesTries[difficulty - 1];
+
+
+for (int i = numOfTries; i > 0; i--)
 {
-    numberOfChances++;
-    string guessNumber = Console.ReadLine();
-    if (secretNumber == Int32.Parse(guessNumber))
+    Console.WriteLine("Guess the secret number!");
+    Console.Write($"Your Guess (Guesses Left: {i}): ");
+    var input = int.Parse(Console.ReadLine());
+
+    if (secretNumber == input)
     {
-        Console.WriteLine("success ");
+        Console.WriteLine("correct!");
         break;
     }
-    if (secretNumber < Int32.Parse(guessNumber))
+    else if (secretNumber > input)
     {
-        Console.WriteLine($"Too high,try again,your guess {guessNumber} and you have {AllowChance - numberOfChances} tries left");
+        Console.WriteLine("Too low!");
     }
-    if (secretNumber > Int32.Parse(guessNumber))
+    else
     {
-        Console.WriteLine($"Too low,try again,your guess {guessNumber} and you have {AllowChance - numberOfChances} tries left");
-    }
-    if (AllowChance == numberOfChances)
-    {
-        Console.WriteLine($"out of chance {secretNumber}");
-        break;
-    }
+        Console.WriteLine("too High!");
+    };
 }
+
