@@ -4,28 +4,17 @@ using System.Collections.Generic;
 
 
 
-Console.WriteLine("difficulty level? 1 -easy, 2 - medium, 3 -hard, 4 -hardest");
+Console.WriteLine("difficulty level? 1 -easy, 2 - medium, 3 -hard, 4 - cheater");
 var difficulty = int.Parse(Console.ReadLine());
-//string guessNumber = Console.ReadLine();
-//Console.WriteLine(guessNumber);
-Random r = new Random();
-int secretNumber = r.Next(1, 100);
+int numberOfGuesses = new int[] { 8, 6, 4, 1 }[difficulty - 1];
 
-List<int> difficultiesTries = new List<int>
-             {
-                 8,
-                 6,
-                 4,
-                 2
-             };
+int secretNumber = new Random().Next(1, 101);
 
-int numOfTries = difficultiesTries[difficulty - 1];
-
-
-for (int i = numOfTries; i > 0; i--)
+while (difficulty == 4 || numberOfGuesses > 0)
 {
+    string guessesLeft = difficulty == 4 ? "INFINITE!" : numberOfGuesses.ToString();
     Console.WriteLine("Guess the secret number!");
-    Console.Write($"Your Guess (Guesses Left: {i}): ");
+    Console.Write($"Your Guess (Guesses Left: {guessesLeft}): ");
     var input = int.Parse(Console.ReadLine());
 
     if (secretNumber == input)
@@ -41,5 +30,5 @@ for (int i = numOfTries; i > 0; i--)
     {
         Console.WriteLine("too High!");
     };
+    numberOfGuesses--;
 }
-
